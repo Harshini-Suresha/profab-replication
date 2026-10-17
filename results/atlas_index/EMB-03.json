@@ -1,0 +1,1 @@
+{"id": "EMB-03", "category": "Embeddings", "title": "EC 1.2.4: PCA of Conjoint triad", "caption": "PCA projection of all 1011 proteins in the EC 1.2.4 pool, described by Conjoint triad (343 dimensions). Silhouette of the two classes in the 2-D map: 0.11. The first two components explain 12.2% and 4.9% of variance. Positives are drawn on top of negatives.", "file": "EMB-03.png"}

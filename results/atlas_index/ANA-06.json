@@ -1,0 +1,1 @@
+{"id": "ANA-06", "category": "Cross-analysis", "title": "Descriptor dimensionality vs performance", "caption": "Mean random-split AUROC of each descriptor against its number of features. The best and worst descriptors are not simply the largest or smallest, which is why descriptor choice should be evaluated rather than assumed.", "file": "ANA-06.png"}

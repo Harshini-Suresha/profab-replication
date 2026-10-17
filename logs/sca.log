@@ -1,0 +1,33 @@
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+saved SIM-01 GO:0000018: test→train similarity ECDF (conjoint-triad)
+saved SIM-02 GO:1905523: test→train similarity ECDF (conjoint-triad)
+saved SIM-03 EC 1.2.4: test→train similarity ECDF (conjoint-triad)
+saved SIM-04 EC 1.2.7: test→train similarity ECDF (conjoint-triad)
+saved SIM-05 GO:0000018: test→train similarity ECDF (kPSSM)
+saved SIM-06 GO:1905523: test→train similarity ECDF (kPSSM)
+saved SIM-07 EC 1.2.4: test→train similarity ECDF (kPSSM)
+saved SIM-08 EC 1.2.7: test→train similarity ECDF (kPSSM)
+saved SIM-09 All splits: test→train similarity distributions
+saved SIM-10 GO:0000018: pairwise similarity heatmap
+saved SIM-11 GO:1905523: pairwise similarity heatmap
+saved SIM-12 EC 1.2.4: pairwise similarity heatmap
+saved SIM-13 EC 1.2.7: pairwise similarity heatmap
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+saved SIM-14 Pairwise similarity: same class vs different class
+SIM 14
+saved CTL-01 GO:0000018: performance as relatives are separated
+saved CTL-02 GO:1905523: performance as relatives are separated
+saved CTL-03 EC 1.2.4: performance as relatives are separated
+saved CTL-04 EC 1.2.7: performance as relatives are separated
+saved CTL-05 GO:0000018: removing near-relatives from training vs random removal
+saved CTL-06 GO:1905523: removing near-relatives from training vs random removal
+saved CTL-07 EC 1.2.4: removing near-relatives from training vs random removal
+saved CTL-08 EC 1.2.7: removing near-relatives from training vs random removal
+CTL 8
+saved ANA-01 MCC vs AUROC
+saved ANA-02 Interval width vs test-set size
+saved ANA-03 Random vs similarity-aware AUROC per configuration
+saved ANA-04 Descriptor ranking across split types
+saved ANA-05 Classifier win-rate matrix
+saved ANA-06 Descriptor dimensionality vs performance
+ANA 6

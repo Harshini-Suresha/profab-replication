@@ -1,0 +1,10 @@
+pool_pos,pool_neg,train_idx_pos,train_idx_neg,train_oob_pos,train_oob_neg,test_idx_pos,test_idx_neg,test_oob_pos,test_oob_neg,validation_idx_pos,validation_idx_neg,validation_oob_pos,validation_oob_neg,task,split
+502,1004,452,904,0,0,50,100,0,0,0,0,0,0,GO_0000018,random
+287,574,259,517,0,0,28,57,0,0,0,0,0,0,GO_0000018,target
+500,1000,241,482,0,0,181,362,0,0,78,156,0,0,GO_0000018,temporal
+90,180,81,162,0,0,9,18,0,0,0,0,0,0,GO_1905523,random
+257,762,232,693,0,0,25,69,0,0,0,0,0,0,ecNo_1-2-4,random
+88,260,80,237,0,0,8,23,0,0,0,0,0,0,ecNo_1-2-4,target
+140,415,126,378,0,0,14,37,0,0,0,0,0,0,ecNo_1-2-7,random
+67,198,61,180,0,0,6,18,0,0,0,0,0,0,ecNo_1-2-7,target
+139,417,108,291,16,20,13,33,1,1,45,120,10,6,ecNo_1-2-7,temporal

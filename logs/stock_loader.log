@@ -1,0 +1,8 @@
+                  nn_median_stock  nn_median_keyed  mcc_stock  mcc_keyed  auroc_stock  auroc_keyed
+feature split                                                                                     
+ctriad  random              0.651            0.651      0.718      0.718        0.928        0.928
+        target              0.467            0.467      0.553      0.553        0.875        0.875
+        temporal            0.492            0.492      0.092      0.092        0.602        0.602
+kpssm   random              0.631            0.645      0.802      0.799        0.939        0.937
+        target              0.479            0.474      0.772      0.752        0.925        0.916
+        temporal            0.633            0.493      0.367      0.629        0.779        0.894

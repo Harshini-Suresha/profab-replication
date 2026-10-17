@@ -1,0 +1,1 @@
+{"id": "ANA-05", "category": "Cross-analysis", "title": "Classifier win-rate matrix", "caption": "For every task \u00d7 descriptor case on random splits, whether the row classifier achieves higher AUROC than the column classifier; cells show the percentage of the 28 cases. It is a ranking summary rather than a significance test.", "file": "ANA-05.png"}

@@ -1,0 +1,1 @@
+{"id": "ANA-02", "category": "Cross-analysis", "title": "Interval width vs test-set size", "caption": "Width of the bootstrap 95% interval on MCC against the number of test proteins. Several official test sets contain only a few dozen proteins, so many differences between classifiers there are within noise.", "file": "ANA-02.png"}

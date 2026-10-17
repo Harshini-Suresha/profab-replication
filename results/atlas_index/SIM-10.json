@@ -1,0 +1,1 @@
+{"id": "SIM-10", "category": "Similarity", "title": "GO:0000018: pairwise similarity heatmap", "caption": "Pairwise mean-centred cosine similarity between all proteins in the pool (conjoint triad), reordered so similar proteins are adjacent. Dark blocks on the diagonal are groups of near-relatives that a random split will scatter across training and test.", "file": "SIM-10.png"}

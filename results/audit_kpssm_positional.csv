@@ -1,0 +1,9 @@
+task,split,kpssm_rows_missing,train_members_wrong,test_members_wrong,n_train,n_test,train_test_overlap_positional,test_wrong_frac
+GO_0000018,random,0,1355,149,1356,150,1,0.9933333333333333
+GO_0000018,target,0,775,84,776,85,1,0.9882352941176471
+GO_0000018,temporal,2,720,543,723,543,2,1.0
+GO_1905523,random,0,241,27,243,27,0,1.0
+ecNo_1-2-4,random,0,923,94,925,94,0,1.0
+ecNo_1-2-4,target,1,316,30,317,31,0,0.967741935483871
+ecNo_1-2-7,random,1,502,51,504,51,0,1.0
+ecNo_1-2-7,target,0,239,24,241,24,1,1.0

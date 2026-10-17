@@ -1,0 +1,219 @@
+<title>ProFAB Replication Study</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Libre+Caslon+Display&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/*__CSS__*/
+</style>
+
+<div class="shell">
+<nav class="toc" aria-label="Contents">
+  <div class="mark">Contents</div>
+  <ol>
+    <li><a href="#abstract">Summary</a></li>
+    <li><a href="#design">Study design</a></li>
+    <li><a href="#audit">Data and split audit</a></li>
+    <li><a href="#baseline">Baseline results</a></li>
+    <li><a href="#splits">Split types compared</a></li>
+    <li><a href="#leakage">Close relatives</a></li>
+    <li><a href="#loader">Loader sensitivity</a></li>
+    <li><a href="#explorer">Result explorer</a></li>
+    <li><a href="#limits">Limitations</a></li>
+    <li><a href="#repro">Reproducibility</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="top">
+  <button class="theme-btn" id="theme-btn" type="button">Dark theme</button>
+  <p class="kicker">Protein function annotation · benchmark replication</p>
+  <h1>How much of ProFAB's performance depends on close relatives between training and test sets</h1>
+  <p class="dek">A re-run of the ProFAB benchmark protocol on its bundled Gene Ontology and Enzyme Commission tasks, with random, similarity-based and temporal splits compared on the same footing, and the effect of near-duplicate proteins measured directly.</p>
+  <div class="byline"><span><b>Source benchmark</b> Özdilek et al., Briefings in Bioinformatics 24(2), bbac627 (2023)</span><span><b>Data</b> ProFAB repository, four bundled tasks</span><span><b>Compute</b> CPU only, {{n_cfg}} configurations on official splits</span></div>
+</header>
+
+<section id="abstract">
+  <h2><span class="sec">Summary</span>What the re-evaluation shows</h2>
+  <p>ProFAB provides ready-made protein sets for GO terms and EC numbers, with random, similarity-aware and temporal train/test splits. This study runs {{n_desc}} sequence descriptors and {{n_clf}} classifiers on every usable split of the four tasks that ship with the repository, then holds the protein pool fixed and changes only how the folds are drawn.</p>
+  <div class="findings">
+    <div class="finding"><div class="v">{{rt_mcc}}<small>MCC</small></div><div class="l">Mean drop from the random to the similarity split over {{rt_n}} matched configurations (95% CI {{rt_mcc_lo}} to {{rt_mcc_hi}}).</div></div>
+    <div class="finding"><div class="v">{{nn_ge09_random}} → {{nn_ge09_target}}</div><div class="l">Share of test proteins with a training neighbour at similarity ≥ 0.9 (conjoint-triad proxy), random versus similarity split.</div></div>
+    <div class="finding"><div class="v">{{infl_ctriad_ctriad}}<small>AUROC</small></div><div class="l">Inflation of conjoint-triad models when folds are random instead of grouped at τ = 0.70 in the same space. k-PSSM models are unchanged by that grouping ({{infl_ctriad_kpssm}}).</div></div>
+    <div class="finding"><div class="v">{{infl_kpssm_kpssm}}<small>AUROC</small></div><div class="l">Inflation of k-PSSM models when folds are grouped in k-PSSM space at τ = 0.90. The descriptor is only exposed to leakage that is measured in its own space.</div></div>
+  </div>
+  <div class="note"><b>Scope.</b> The repository bundles four of the platform's datasets; the project server that hosts the rest was not reachable from the analysis environment. The article's result tables were also not accessible, so this is a replication of the protocol and its split logic, not a cell-by-cell comparison with the published numbers. Similarity here is a feature-space proxy, not sequence identity. Section 9 lists the full set of limits.</div>
+</section>
+
+<section id="design">
+  <h2><span class="sec">Study design</span>Tasks, descriptors, classifiers and statistics</h2>
+  <p>Each task is a binary problem: proteins annotated with a GO term or EC number against sampled negatives. Positives make up one third of the GO pools and about one quarter of the EC pools. Splits are the ones ProFAB ships as index files, so train and test membership is not re-drawn.</p>
+  <div class="tablewrap"><table id="tbl-tasks"><caption>Table 1. Tasks used in this study</caption></table></div>
+  <h3>Descriptors</h3>
+  <dl class="defs">
+    <dt>AAC</dt><dd>Amino acid composition, 20 features.</dd>
+    <dt>PAAC</dt><dd>Pseudo amino acid composition, 50 features.</dd>
+    <dt>GAAC</dt><dd>Grouped amino acid composition, 5 features.</dd>
+    <dt>CTD-T</dt><dd>Composition, transition, distribution (transition part), 39 features.</dd>
+    <dt>SOC number</dt><dd>Sequence-order coupling number, 60 features.</dd>
+    <dt>Conjoint triad</dt><dd>Frequencies of 3-residue patterns over 7 physicochemical classes, 343 features.</dd>
+    <dt>k-PSSM</dt><dd>k-separated bigram PSSM, 400 features. Derived from position-specific scoring matrices, so it encodes evolutionary profile information.</dd>
+  </dl>
+  <h3>Classifiers</h3>
+  <p>Logistic regression, RBF support vector machine, k-nearest neighbours, random forest, histogram gradient boosting, Gaussian naive Bayes and a one-hidden-layer MLP. Features are standardised inside the model pipeline for every method except the tree ensembles. Regularisation strength (logistic regression, SVM) and neighbour count (k-NN) are tuned by inner 3-fold cross-validation on the training set only, scored by AUROC. The other four use fixed settings. ProFAB tunes hyperparameters for all of its algorithms automatically, so this is a lighter protocol than the original. Temporal validation proteins are merged into the training set before tuning.</p>
+  <h3>Metrics and uncertainty</h3>
+  <p>Matthews correlation coefficient is the primary metric because positives are the minority class. AUROC, average precision (AUPRC), accuracy, balanced accuracy, precision, recall, specificity and F1 are reported alongside. Every test-set metric carries a stratified bootstrap 95% interval (500 resamples). Differences between split types use matched (task, descriptor, classifier) triples, a percentile bootstrap (4,000 resamples) on the mean difference, and a Wilcoxon signed-rank test.</p>
+  <div class="eq">MCC = (TP·TN − FP·FN) / √((TP+FP)(TP+FN)(TN+FP)(TN+FN))
+AUPRC = Σₙ (Rₙ − Rₙ₋₁) · Pₙ        (step-wise average precision)</div>
+  <h3>Similarity proxy</h3>
+  <p>Sequences are not available offline, so closeness between two proteins is the cosine similarity of their mean-centred descriptor vectors, written τ when used as a threshold. Conjoint triad is the default space because it is composition-based and independent of the k-PSSM profile. Cosine values measured in different descriptor spaces are not on one scale: compare splits within a space, not spaces with each other.</p>
+  <h3>Controlled experiments</h3>
+  <ul class="plain">
+    <li><b>Same-pool cross-validation.</b> Each task's random-split pool is cross-validated in five folds, either with ordinary stratified folds or with stratified group folds. Groups are the connected components of the graph that links proteins at similarity ≥ τ, so no held-out protein has a training neighbour at or above τ. Random folds are repeated four times and grouped folds twice per τ.</li>
+    <li><b>Leakage pruning.</b> For each test fold, training proteins at or above τ to any test protein are removed. A control removes the same number of randomly chosen training proteins (three draws).</li>
+    <li><b>Cross-space grouping.</b> Groups are built in conjoint-triad space or in k-PSSM space and every descriptor is scored under both.</li>
+  </ul>
+</section>
+
+<section id="audit">
+  <h2><span class="sec">Data and split audit</span>What the split files contain</h2>
+  <p>In the splits audited here no accession appears in both train and test. Positive rates are preserved between train and test within each split. Exact duplicate AAC vectors do occur across the random splits ({{dup_random}} test proteins in total) and not in the similarity splits.</p>
+  <div class="tablewrap"><table id="tbl-split"><caption>Table 2. Integrity of the shipped train/test splits</caption></table></div>
+
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 1. Distance from each test protein to its training set</p><p class="fig-sub">Empirical distribution of the nearest-neighbour similarity, pooled over tasks; thin lines are single tasks</p></div><div class="ctrl" id="f1-ctrl"></div></div>
+    <div class="plot" id="f1-plot"></div><div class="legend" id="f1-legend"></div>
+    <figcaption><b>Reading the curve.</b> A curve further to the left means test proteins sit further from the training set. In conjoint-triad space the similarity and temporal splits are clearly more distant than the random split: {{nn_ge09_random}} of random test proteins have a training neighbour at ≥ 0.9, against {{nn_ge09_target}} (similarity) and {{nn_ge09_temporal}} (temporal). In k-PSSM space the temporal split is as close to its training set as the random split.</figcaption>
+  </figure>
+
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 2. Closeness to the training set depends on the space it is measured in</p><p class="fig-sub">Mean over tasks of test-to-train nearest-neighbour similarity, split by descriptor space</p></div><div class="ctrl" id="f2-ctrl"></div></div>
+    <div class="plot" id="f2-plot"></div>
+    <figcaption>A split built to separate similar proteins in one description does not necessarily separate them in another. In k-PSSM space the similarity split leaves a median nearest-training similarity of {{own_kp_target}} and {{own_kp_target_ge09}} of test proteins at ≥ 0.9, against {{own_kp_random}} and {{own_kp_random_ge09}} for the random split. Values are only comparable down a column of one row.</figcaption>
+  </figure>
+
+  <h3>Index files that do not fit their feature files</h3>
+  <p>ProFAB stores train, test and validation membership as row positions. For the temporal split of EC 1.2.7 a large share of those positions lie beyond the end of the feature file. ProFAB's own loader skips such rows without a message, so the shipped temporal split for this task contains an unknown subset of its intended proteins. It is excluded from every result here.</p>
+  <div class="tablewrap"><table id="tbl-oob"><caption>Table 3. Index entries that point past the end of the feature file</caption></table></div>
+
+  <h3>k-PSSM files are offset from the other descriptors</h3>
+  <p>The index files are shared by all descriptors, but the k-PSSM files are not row-aligned with the others. The first mismatch is at row 0 in all 16 files, each file lists one accession twice, and a few accessions are truncated or missing. Applied by position, the same index selects different proteins for k-PSSM than for AAC or conjoint triad. This study resolves every index on the AAC file and joins the other descriptors by accession. Section 7 measures what the stock behaviour changes.</p>
+  <div class="tablewrap"><table id="tbl-kp"><caption>Table 4. Row alignment of the k-PSSM files against the AAC files</caption></table></div>
+</section>
+
+<section id="baseline">
+  <h2><span class="sec">Baseline results</span>Descriptor and classifier performance on the official splits</h2>
+  <p>Figure 3 averages over tasks. The random split has four tasks, the similarity split three, and the temporal split one (GO:0000018). The hardest settings are the composition descriptors on the temporal split, where mean AUROC lies between 0.53 and 0.65.</p>
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 3. Descriptor × classifier performance</p><p class="fig-sub">Mean over tasks, test set of each official split</p></div><div class="ctrl"><span id="f3-ctrl"></span><span id="f3-ctrl2"></span></div></div>
+    <div class="plot" id="f3-plot"></div>
+    <figcaption>Hover a cell for all three metrics. Colour scales are fixed per metric so cells compare across the split buttons. Gaussian naive Bayes has the lowest mean MCC on the random and temporal splits and the MLP on the similarity split. k-PSSM is the strongest descriptor on every split, and on the temporal split it is the only one that stays well above chance.</figcaption>
+  </figure>
+
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 4. Best configuration per task and split</p><p class="fig-sub">Highest test MCC out of 49 descriptor × classifier pairs, with 95% bootstrap interval</p></div></div>
+    <div class="plot" id="f4-plot"></div><div class="legend" id="f4-legend"></div>
+    <figcaption>Selecting the maximum over 49 pairs on the test set is optimistic and is shown to bound what the benchmark can express, not as an unbiased estimate. The three smallest test sets (24 to 31 proteins) reach MCC 1.0 with intervals that collapse to a point; those scores say little beyond the size of the set.</figcaption>
+  </figure>
+</section>
+
+<section id="splits">
+  <h2><span class="sec">Split types compared</span>Random, similarity-aware and temporal</h2>
+  <p>Pairing every configuration across split types removes the effect of task, descriptor and classifier. Random splits score higher than similarity splits in {{rt_better}} of {{rt_n}} matched configurations. Against the temporal split the gap is larger, but that comparison uses a single task and different protein pools, so it should be read as indicative only.</p>
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 5. Paired differences between split types</p><p class="fig-sub">Mean over matched task × descriptor × classifier configurations, with 95% bootstrap interval</p></div><div class="ctrl" id="f5-ctrl"></div></div>
+    <div class="plot" id="f5-plot"></div>
+    <figcaption>All intervals exclude zero. Hover for the Wilcoxon p-value and the fraction of pairs in which the first split scores higher.</figcaption>
+  </figure>
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 6. Where the split penalty falls</p><p class="fig-sub">Mean over tasks and classifiers, by descriptor and split</p></div><div class="ctrl" id="f6-ctrl"></div></div>
+    <div class="plot" id="f6-plot"></div><div class="legend" id="f6-legend"></div>
+    <figcaption>The penalty from random to similarity-aware splitting is smallest for AAC and k-PSSM and largest for PAAC, conjoint triad and SOC number. On the temporal split every descriptor except k-PSSM falls close to chance.</figcaption>
+  </figure>
+</section>
+
+<section id="leakage">
+  <h2><span class="sec">Close relatives</span>How near-duplicate proteins inflate scores</h2>
+  <p>Comparing split types mixes two things: how close test proteins are to the training set, and how the pools differ. The experiments below keep one pool per task and change only the folds.</p>
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 7. Same pool, stricter folds</p><p class="fig-sub">Out-of-fold performance when no held-out protein may have a training neighbour at or above τ</p></div><div class="ctrl"><span id="f7-ctrl"></span><span id="f7-ctrl2"></span></div></div>
+    <div class="plot" id="f7-plot"></div><div class="legend" id="f7-legend"></div>
+    <figcaption>Folds are grouped in conjoint-triad space. Descriptors measured in that space (conjoint triad, and to a smaller degree PAAC and AAC) lose performance as τ falls; k-PSSM does not move, because the groups say nothing about relatedness in the PSSM profile. The shaded band is the range over the four tasks. The 1-NN lookup button shows the same pattern more sharply, since a nearest-neighbour rule has nothing but the closest training protein to go on.</figcaption>
+  </figure>
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 8. Inflation attributable to random folds</p><p class="fig-sub">Score under random folds minus score under grouped folds, averaged over tasks and classifiers, 95% bootstrap interval</p></div><div class="ctrl" id="f8-ctrl"></div></div>
+    <div class="plot" id="f8-plot"></div><div class="legend" id="f8-legend"></div>
+    <figcaption>{{infl_summary}}</figcaption>
+  </figure>
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 9. Error as a function of the nearest training neighbour</p><p class="fig-sub">Random folds, balanced error per similarity bin, pooled over tasks and weighted by bin size</p></div><div class="ctrl" id="f9-ctrl"></div></div>
+    <div class="plot" id="f9-plot"></div><div class="legend" id="f9-legend"></div>
+    <figcaption>{{bin_summary}}</figcaption>
+  </figure>
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 10. Removing the close relatives from the training set</p><p class="fig-sub">AUROC after dropping training proteins at or above a similarity threshold to the test fold, against a size-matched random removal</p></div><div class="ctrl" id="f10-ctrl"></div></div>
+    <div class="facets" id="f10-plots"></div><div class="legend" id="f10-legend"></div>
+    <figcaption>{{prune_summary}}</figcaption>
+  </figure>
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 11. Which descriptor each grouping protects against</p><p class="fig-sub">AUROC inflation (random folds minus grouped folds) with groups built in either space</p></div></div>
+    <div class="plot" id="f11-plot"></div>
+    <figcaption>{{proxy_summary}}</figcaption>
+  </figure>
+</section>
+
+<section id="loader">
+  <h2><span class="sec">Loader sensitivity</span>Stock positional loading against accession-keyed loading</h2>
+  <p>ProFAB applies each index file to the rows of whichever descriptor file is loaded. Figure 12 compares that behaviour with resolving the index on the AAC file and joining by accession. Conjoint triad is the control: its files are row-aligned with AAC, so both loaders select the same proteins.</p>
+  <figure class="fig">
+    <div class="fig-head"><div><p class="fig-title">Figure 12. Effect of the k-PSSM row offset</p><p class="fig-sub">Mean over tasks and classifiers on the official splits</p></div><div class="ctrl" id="f12-ctrl"></div></div>
+    <div class="plot" id="f12-plot"></div><div class="legend" id="f12-legend"></div>
+    <figcaption>{{stock_summary_text}}</figcaption>
+  </figure>
+</section>
+
+<section id="explorer">
+  <h2><span class="sec">Result explorer</span>All {{n_cfg}} configurations</h2>
+  <p>Every task, split, descriptor and classifier combination on the official splits. Click a column to sort; intervals are stratified bootstrap 95% intervals on the test set.</p>
+  <div class="ctrl" id="ex-ctrl" style="margin-bottom:0.6rem"></div>
+  <div class="tablewrap"><table id="tbl-ex"></table><div class="pager" id="ex-pager"></div></div>
+</section>
+
+<section id="limits">
+  <h2><span class="sec">Limitations</span>What the results cannot support</h2>
+  <ul class="plain">
+    <li><b>Four tasks.</b> The conclusions rest on two GO terms and two EC numbers. The similarity split exists for three of them and the temporal split for one usable task. Test sets range from 24 to 543 proteins.</li>
+    <li><b>Similarity is a proxy.</b> Thresholds are cosine values in descriptor space and do not map to percent sequence identity. A run with MMseqs2 or CD-HIT clusters at fixed identity would need the sequences, which the shipped files do not contain and which could not be downloaded here.</li>
+    <li><b>Single-linkage groups.</b> At the lowest thresholds the largest group holds up to {{giant_max}} of a task's proteins, which limits how strict the folds can become. Grouped folds can therefore differ slightly in training size from random folds.</li>
+    <li><b>Lighter tuning.</b> Four of seven classifiers use fixed hyperparameters and the controlled experiments use fixed settings throughout. Rankings among classifiers may change under the full ProFAB tuning.</li>
+    <li><b>No published numbers.</b> The article's tables were not accessible, so agreement with the reported scores is untested.</li>
+    <li><b>Descriptor provenance.</b> The k-PSSM features are used as shipped. How the PSSMs were generated, and why some rows are shifted or missing, is not documented in the repository.</li>
+    <li><b>Temporal comparison.</b> One task, different pool composition from the random split (about one third of proteins shared), and a split that ProFAB builds from annotation time. The causal story for its near-chance composition results is a hypothesis.</li>
+  </ul>
+</section>
+
+<section id="repro">
+  <h2><span class="sec">Reproducibility</span>Code, seeds and files</h2>
+  <p>Everything runs on two CPU cores in roughly one hour. Random seed 42 is used for model initialisation, bootstrap and tuning folds; fold-set seeds are listed in each script.</p>
+  <div class="eq">src/loader.py        accession-keyed loading, positional (stock-style) loading, index audit
+src/audit.py         split integrity and nearest-neighbour similarity (experiment 0)
+src/bench.py         49 descriptor × classifier pairs on every usable official split
+src/controlled_cv.py same-pool random versus grouped folds
+src/pruning.py       leakage pruning with size-matched control
+src/proxy_cross.py   groups in one space, scored in every descriptor
+src/stock_loader.py  stock versus accession-keyed loading
+src/audit_spaces.py  test-to-train similarity in each descriptor's own space
+src/analyze.py, analyze2.py   aggregate to results/site_data.json</div>
+  <p>Data come from the MIT-licensed ProFAB repository (github.com/kansil/ProFAB). Please cite the original article: Özdilek AS, Atakan A, Özsarı G, Acar A, Atalay MV, Doğan T, Rifaioğlu AS. ProFAB: open protein functional annotation benchmark. Briefings in Bioinformatics 24(2), bbac627 (2023). doi:10.1093/bib/bbac627.</p>
+</section>
+
+<footer class="end">Figures are drawn from the aggregated results embedded in this page. Hover or tap any mark for the underlying values.</footer>
+</main>
+</div>
+
+<script>window.__DATA__ = /*__DATA__*/null;</script>
+<script>
+/*__LIB__*/
+</script>
+<script>
+/*__APP__*/
+</script>

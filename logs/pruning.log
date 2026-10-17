@@ -1,0 +1,36 @@
+[Parallel(n_jobs=2)]: Using backend LokyBackend with 2 concurrent workers.
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+[Parallel(n_jobs=2)]: Done  14 tasks      | elapsed:  8.7min
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+/home/claude/profab_study/src/loader.py:56: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  out = pd.concat([pos.assign(y=1), neg.assign(y=0)]).copy()
+[Parallel(n_jobs=2)]: Done  20 out of  20 | elapsed: 11.2min finished
+done 673 s (7380, 13)

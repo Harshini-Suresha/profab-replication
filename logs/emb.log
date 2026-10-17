@@ -1,0 +1,30 @@
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+saved EMB-01 GO:0000018: PCA of Conjoint triad
+saved EMB-02 GO:1905523: PCA of Conjoint triad
+saved EMB-03 EC 1.2.4: PCA of Conjoint triad
+saved EMB-04 EC 1.2.7: PCA of Conjoint triad
+saved EMB-05 GO:0000018: t-SNE of Conjoint triad
+saved EMB-06 GO:1905523: t-SNE of Conjoint triad
+saved EMB-07 EC 1.2.4: t-SNE of Conjoint triad
+saved EMB-08 EC 1.2.7: t-SNE of Conjoint triad
+saved EMB-09 GO:0000018: UMAP of Conjoint triad
+saved EMB-10 GO:1905523: UMAP of Conjoint triad
+saved EMB-11 EC 1.2.4: UMAP of Conjoint triad
+saved EMB-12 EC 1.2.7: UMAP of Conjoint triad
+saved EMB-13 GO:0000018: PCA of k-sep. bigram PSSM
+saved EMB-14 GO:1905523: PCA of k-sep. bigram PSSM
+saved EMB-15 EC 1.2.4: PCA of k-sep. bigram PSSM
+saved EMB-16 EC 1.2.7: PCA of k-sep. bigram PSSM
+saved EMB-17 GO:0000018: UMAP of k-sep. bigram PSSM
+saved EMB-18 GO:1905523: UMAP of k-sep. bigram PSSM
+saved EMB-19 EC 1.2.4: UMAP of k-sep. bigram PSSM
+saved EMB-20 EC 1.2.7: UMAP of k-sep. bigram PSSM
+saved EMB-21 GO:0000018: where the random test set sits
+saved EMB-22 GO:0000018: where the similarity-aware test set sits
+saved EMB-23 GO:0000018: where the temporal test set sits
+saved EMB-24 GO:1905523: where the random test set sits
+saved EMB-25 EC 1.2.4: where the random test set sits
+saved EMB-26 EC 1.2.4: where the similarity-aware test set sits
+saved EMB-27 EC 1.2.7: where the random test set sits
+saved EMB-28 EC 1.2.7: where the similarity-aware test set sits
+EMB done 28

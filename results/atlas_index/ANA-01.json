@@ -1,0 +1,1 @@
+{"id": "ANA-01", "category": "Cross-analysis", "title": "MCC vs AUROC", "caption": "Every task \u00d7 split \u00d7 descriptor \u00d7 classifier run. The two metrics agree on ranking (Spearman \u03c1 = 0.88), but MCC depends on the decision threshold and is systematically lower and more spread out than AUROC.", "file": "ANA-01.png"}

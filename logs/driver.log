@@ -1,0 +1,9 @@
+start bench 11:42:47
+end bench 11:48:48 rc=0
+start controlled_cv 11:48:48
+end controlled_cv 11:57:46 rc=0
+start pruning 11:57:46
+end pruning 12:09:01 rc=0
+start stock_loader 12:09:01
+end stock_loader 12:17:46 rc=0
+ALLDONE

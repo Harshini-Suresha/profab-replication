@@ -1,0 +1,53 @@
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+saved HEA-01 GO:0000018 · Random: MCC grid
+saved HEA-02 GO:0000018 · Similarity-aware: MCC grid
+saved HEA-03 GO:0000018 · Temporal: MCC grid
+saved HEA-04 GO:1905523 · Random: MCC grid
+saved HEA-05 EC 1.2.4 · Random: MCC grid
+saved HEA-06 EC 1.2.4 · Similarity-aware: MCC grid
+saved HEA-07 EC 1.2.7 · Random: MCC grid
+saved HEA-08 EC 1.2.7 · Similarity-aware: MCC grid
+saved HEA-09 GO:0000018 · Random: AUROC grid
+saved HEA-10 GO:0000018 · Similarity-aware: AUROC grid
+saved HEA-11 GO:0000018 · Temporal: AUROC grid
+saved HEA-12 GO:1905523 · Random: AUROC grid
+saved HEA-13 EC 1.2.4 · Random: AUROC grid
+saved HEA-14 EC 1.2.4 · Similarity-aware: AUROC grid
+saved HEA-15 EC 1.2.7 · Random: AUROC grid
+saved HEA-16 EC 1.2.7 · Similarity-aware: AUROC grid
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+saved CUR-01 GO:0000018 · Random: ROC and PR curves
+saved CUR-02 GO:0000018 · Similarity-aware: ROC and PR curves
+saved CUR-03 GO:0000018 · Temporal: ROC and PR curves
+saved CUR-04 GO:1905523 · Random: ROC and PR curves
+saved CUR-05 EC 1.2.4 · Random: ROC and PR curves
+saved CUR-06 EC 1.2.4 · Similarity-aware: ROC and PR curves
+saved CUR-07 EC 1.2.7 · Random: ROC and PR curves
+saved CUR-08 EC 1.2.7 · Similarity-aware: ROC and PR curves
+findfont: Failed to find font weight semibold for DejaVu Sans, now using 700.
+saved CNF-01 GO:0000018 · Random: confusion matrices
+saved CNF-02 GO:0000018 · Similarity-aware: confusion matrices
+saved CNF-03 GO:0000018 · Temporal: confusion matrices
+saved CNF-04 GO:1905523 · Random: confusion matrices
+saved CNF-05 EC 1.2.4 · Random: confusion matrices
+saved CNF-06 EC 1.2.4 · Similarity-aware: confusion matrices
+saved CNF-07 EC 1.2.7 · Random: confusion matrices
+saved CNF-08 EC 1.2.7 · Similarity-aware: confusion matrices
+saved CNF-09 GO:0000018 · Random: score distributions
+saved CNF-10 GO:0000018 · Similarity-aware: score distributions
+saved CNF-11 GO:0000018 · Temporal: score distributions
+saved CNF-12 GO:1905523 · Random: score distributions
+saved CNF-13 EC 1.2.4 · Random: score distributions
+saved CNF-14 EC 1.2.4 · Similarity-aware: score distributions
+saved CNF-15 EC 1.2.7 · Random: score distributions
+saved CNF-16 EC 1.2.7 · Similarity-aware: score distributions
+saved INT-01 GO:0000018 · Random: all configurations with intervals
+saved INT-02 GO:0000018 · Similarity-aware: all configurations with intervals
+saved INT-03 GO:0000018 · Temporal: all configurations with intervals
+saved INT-04 GO:1905523 · Random: all configurations with intervals
+saved INT-05 EC 1.2.4 · Random: all configurations with intervals
+saved INT-06 EC 1.2.4 · Similarity-aware: all configurations with intervals
+saved INT-07 EC 1.2.7 · Random: all configurations with intervals
+saved INT-08 EC 1.2.7 · Similarity-aware: all configurations with intervals
+done 16 8 16 8

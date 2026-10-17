@@ -113,7 +113,7 @@ function build() {
       h("p", { class: "eyebrow" }, "Replication study · Briefings in Bioinformatics 24(2), 2023"),
       h("h1", {}, "ProFAB Benchmark Replication"),
       h("p", { class: "lede" }, "A reimplementation of the Open Protein Functional Annotation Benchmark on its released GO and EC datasets, comparing random, similarity-aware and temporal splits and measuring how much close relatives between training and test sets inflate reported performance."),
-      h("p", { class: "meta" }, h("span", {}, h("b", {}, "Original paper "), "Özdilek et al., ProFAB"), h("span", {}, h("b", {}, "Tasks "), "GO:0000018, GO:1905523, EC 1.2.4, EC 1.2.7"), h("span", {}, h("b", {}, "Configurations "), `${cfg} official-split runs`), h("span", {}, h("b", {}, "Contact "), h("a", { href: "mailto:harshinisuresha7@gmail.com" }, "harshinisuresha7@gmail.com")))),
+      h("p", { class: "meta" }, h("span", {}, h("b", {}, "Original paper "), h("a", { href: "https://doi.org/10.1093/bib/bbac627" }, "Özdilek et al., ProFAB (2023)")), h("span", {}, h("b", {}, "Tasks "), "GO:0000018, GO:1905523, EC 1.2.4, EC 1.2.7"), h("span", {}, h("b", {}, "Configurations "), `${cfg} official-split runs`), h("span", {}, h("b", {}, "Contact "), h("a", { href: "mailto:harshinisuresha7@gmail.com" }, "harshinisuresha7@gmail.com")))),
 
     section("summary", "01", "Summary", "Seven results, each computed from the tables on this page.", col(findings(),
       h("div", { class: "scope", html: "<b>Scope.</b> The study uses the four tasks whose processed features ship with the ProFAB repository, not the full benchmark of thousands of GO terms and EC numbers hosted on the authors’ server. Similarity is measured in descriptor space (mean-centred cosine on the features ProFAB provides), which stands in for sequence identity because sequences were not retrievable from the analysis environment. Classifiers are scikit-learn models trained here rather than the ProFAB package, and numbers were not compared against the paper’s tables, whose full text was not available. Treat every absolute score as a property of this setup and every difference as the main result." }))),
@@ -176,7 +176,7 @@ function build() {
 
     section("reading", "00", "Further reading", null, reading()),
 
-    h("footer", { class: "col" }, h("div", { class: "contact" }, "Contact: ", h("a", { href: "mailto:harshinisuresha7@gmail.com" }, "harshinisuresha7@gmail.com")))
+    h("footer", { class: "col" }, h("div", { class: "contact" }, "Original paper: ", h("a", { href: "https://doi.org/10.1093/bib/bbac627" }, "Özdilek et al., Briefings in Bioinformatics 24(2), bbac627 (2023)"), " · Contact: ", h("a", { href: "mailto:harshinisuresha7@gmail.com" }, "harshinisuresha7@gmail.com")))
   );
   root.replaceChildren(bar, main);
   [...main.querySelectorAll("section > h2 > .sec")].forEach((e, i) => { e.textContent = String(i + 1).padStart(2, "0"); });

@@ -1,5 +1,5 @@
 """Assemble the single-file site: site/dist/index.html (data, styles and scripts inlined)."""
-import json, os
+import base64, json, os
 import pandas as pd
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -13,6 +13,12 @@ keep = ["tasks", "audit_splits", "audit_index", "nn_ecdf", "nn_summary", "benchm
 D = {k: D[k] for k in keep}
 css = open(f"{S}/style.css").read()
 js = "\n".join(open(f"{S}/{f}").read() for f in ["lib.js", "figs_a.js", "figs_b.js", "atlas.js", "diagrams.js", "content.js", "app.js"])
+atlas = json.load(open(f"{S}/atlas_index.json"))
+imgs = {}
+for a in atlas:
+    p = f"{S}/atlas/{a['id']}.webp"
+    if os.path.exists(p):
+        imgs[a["id"]] = "data:image/webp;base64," + base64.b64encode(open(p, "rb").read()).decode()
 html = f"""<meta charset="utf-8">
 <title>ProFAB Benchmark Replication</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -25,7 +31,8 @@ html = f"""<meta charset="utf-8">
 <script>
 const D = {json.dumps(D, separators=(",", ":"))};
 const DG = {json.dumps(json.load(open(f"{S}/diagram_data.json")), separators=(",", ":"))};
-const ATLAS = {json.dumps(json.load(open(f"{S}/atlas_index.json")), separators=(",", ":"))};
+const ATLAS = {json.dumps(atlas, separators=(",", ":"))};
+const ATLAS_IMG = {json.dumps(imgs, separators=(",", ":"))};
 </script>
 <script>
 {js}

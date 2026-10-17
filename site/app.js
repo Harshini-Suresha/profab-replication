@@ -176,7 +176,7 @@ function build() {
 
     section("reading", "00", "Further reading", null, reading()),
 
-    h("footer", { class: "col" }, "ProFAB Benchmark Replication. Code, tables and figures are in the accompanying project archive. Every number on this page is computed in the browser from the embedded results.", h("div", { class: "contact" }, "Contact: ", h("a", { href: "mailto:harshinisuresha7@gmail.com" }, "harshinisuresha7@gmail.com")))
+    h("footer", { class: "col" }, h("div", { class: "contact" }, "Contact: ", h("a", { href: "mailto:harshinisuresha7@gmail.com" }, "harshinisuresha7@gmail.com")))
   );
   root.replaceChildren(bar, main);
   [...main.querySelectorAll("section > h2 > .sec")].forEach((e, i) => { e.textContent = String(i + 1).padStart(2, "0"); });
